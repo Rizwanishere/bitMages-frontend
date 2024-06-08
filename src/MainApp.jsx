@@ -5,6 +5,7 @@ import About from "./About";
 import Contact from "./Contact";
 import Program from "./Program";
 import Workout from "./Workout";
+import Ai from "./Ai";
 
 import NotFound from "./NotFound";
 
@@ -18,6 +19,7 @@ function MainApp() {
         <Route path="/programs" element={<Program />} />
         <Route path="/workouts" element={<Workout />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/ai" element={<Ai />} />
 
 
         <Route path="*" element={<NotFound />} />

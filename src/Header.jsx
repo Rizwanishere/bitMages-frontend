@@ -11,7 +11,7 @@ function Header() {
                         Gymini
                     </Link>
                     <ul className="flex space-x-4">
-                        <li><Link to="/workouts" className="nav-link">Workouts</Link></li>
+                        <li><Link to="/ai" className="nav-link">Workouts</Link></li>
                         <li><Link to="/programs" className="nav-link">Programs</Link></li>
                         <li><Link to="/store" className="nav-link">Store</Link></li>
                     </ul>
