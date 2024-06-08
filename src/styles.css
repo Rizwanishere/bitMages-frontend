@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+
+.merriweather-light {
+  font-family: "Merriweather", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.merriweather-regular {
+  font-family: "Merriweather", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.merriweather-bold {
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+body{
+  font-family: 'Merriweather', sans-serif;
+}
+
+/* Below are hover underlines */
+.nav-link {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px; /* Adjust the height to control the thickness of the underline */
+    background-color: #0E7490;
+    bottom: -3px; /* Adjust the bottom value to control the distance below the text */
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+/* Below are bg styles when you copy text */
+::selection {
+  @apply bg-primary text-white;
+}
+
+::-moz-selection {
+  @apply bg-primary text-white;
+}
