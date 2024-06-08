@@ -6,6 +6,8 @@ import Contact from "./Contact";
 import Program from "./Program";
 import Workout from "./Workout";
 import Ai from "./Ai";
+import ProductList from "./Product/ProductList";
+import NewProduct from "./Product/NewProduct"
 
 import NotFound from "./NotFound";
 
@@ -20,6 +22,8 @@ function MainApp() {
         <Route path="/workouts" element={<Workout />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/ai" element={<Ai />} />
+        <Route path="/products" element={<ProductList />} />
+        <Route path="/products/new" element={<NewProduct />} />
 
 
         <Route path="*" element={<NotFound />} />
