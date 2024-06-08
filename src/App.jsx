@@ -5,6 +5,12 @@ import Header from "./Header";
 import MainApp from "./MainApp";
 import Footer from "./Footer";
 import SideBar from "./Product/Sidebar";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51PMPMCRqDKJqedll0zQ5Xb0S7my1mhW6ub8mmza5XJYfwhI6muyFq598rI3CtjVOsvg1ROctSbh8XzjmmVjB2qeS00NZ2U4e46"
+);
 
 const App = () => {
   return (
@@ -12,10 +18,12 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <main className="flex flex-grow justify-center items-center">
-          <MainApp />
+          <Elements stripe={stripePromise}>
+            <MainApp />
+          </Elements>
         </main>
-        <SideBar />
         <Footer />
+        <SideBar />
       </BrowserRouter>
     </div>
   );
