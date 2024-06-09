@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
-import { WorkoutPlan, DietPlan } from "./PlanComponents";
 
 // Define the questions for each step
 const steps = [
@@ -167,47 +166,10 @@ export default function FitnessStepper() {
     }));
   };
 
-  const handleSubmit = async () => {
-    // Flatten the answers object
-    const flattenedAnswers = Object.values(answers).reduce(
-      (acc, stepAnswers) => ({ ...acc, ...stepAnswers }),
-      {}
-    );
-
-    try {
-      const response = await fetch(
-        "https://bitmages-backend.onrender.com/submitUserResponse",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(flattenedAnswers),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setResponse(data); // Update the response state with the data
-      } else {
-        console.error("Error submitting data:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error submitting data:", error);
-    }
+  const handleSubmit = () => {
+    console.log("User Answers: ", answers);
+    // You can add code here to handle form submission
   };
-
-  if (response) {
-    return (
-      <div className="w-full max-w-2xl mx-auto py-8 px-4">
-        <h2 className="text-xl font-semibold mb-4">Your Fitness Plan</h2>
-        {/* <p>{JSON.stringify(response)}</p> */}
-
-        <WorkoutPlan data={response.workoutPlan} />
-        <DietPlan data={response.dietPlan} />
-      </div>
-    );
-  }
 
   return (
     <div className="w-full max-w-2xl mx-auto py-8 px-4">
