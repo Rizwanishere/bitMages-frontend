@@ -44,7 +44,7 @@ const OrderConfirmation = () => {
           </p>
         )}
         <Link
-          to="/product"
+          to="/products"
           className="bg-primary text-white py-2 px-4 rounded text-lg inline-block"
         >
           Continue Shopping

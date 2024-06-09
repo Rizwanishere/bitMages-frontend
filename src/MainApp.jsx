@@ -5,7 +5,7 @@ import About from "./About";
 import Contact from "./Contact";
 import Program from "./Program";
 import Workout from "./Workout";
-import Ai from "./Ai";
+import Ai from "./Ai"; // Make sure to import the Ai component correctly
 import ProductList from "./Product/ProductList";
 import NewProduct from "./Product/NewProduct";
 import CheckoutPage from "./Product/CheckoutPage";
@@ -23,15 +23,15 @@ function MainApp() {
         <Route path="/programs" element={<Program />} />
         <Route path="/workouts" element={<Workout />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/ai" element={<Ai />} />
+        <Route path="/ai" element={<Ai />} /> {/* Update the route */}
         <Route path="/products" element={<ProductList />} />
         <Route path="/products/new" element={<NewProduct />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/orderconfirmation" element={<OrderConfirmation />} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
 }
+
 export default MainApp;
