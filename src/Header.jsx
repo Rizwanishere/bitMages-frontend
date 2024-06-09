@@ -23,10 +23,7 @@ function Header() {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    if (
-      !isLoggedin &&
-      (currentPath === "/ai")
-    ) {
+    if (!isLoggedin && currentPath === "/ai") {
       navigate("/signin");
       toast.error("Please signin to continue!");
     }
@@ -40,15 +37,10 @@ function Header() {
           <Link to="/" className="text-2xl font-bold text-primary">
             Gymini
           </Link>
-          <ul className="flex space-x-4">
+          {/* <ul className="flex space-x-4">
             <li>
               <Link to="/ai" className="nav-link">
                 Workouts
-              </Link>
-            </li>
-            <li>
-              <Link to="/programs" className="nav-link">
-                Programs
               </Link>
             </li>
             <li>
@@ -56,11 +48,21 @@ function Header() {
                 Store
               </Link>
             </li>
-          </ul>
+          </ul> */}
         </div>
 
         {/* Right side: Secondary navigation */}
         <ul className="flex space-x-4">
+          <li>
+            <Link to="/ai" className="nav-link">
+              Workouts
+            </Link>
+          </li>
+          <li>
+            <Link to="/products" className="nav-link">
+              Store
+            </Link>
+          </li>
           <li>
             <Link to="/about" className="nav-link">
               About

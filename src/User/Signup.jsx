@@ -100,7 +100,7 @@ function Signup() {
                 type="text"
                 autoComplete="given-name"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                className="block w-full p-1 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 value={user.firstName}
                 onChange={onInputChange}
               />
@@ -126,7 +126,7 @@ function Signup() {
                 type="text"
                 autoComplete="family-name"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus: sm:text-sm sm:leading-6"
+                className="block w-full p-1 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus: sm:text-sm sm:leading-6"
                 value={user.lastName}
                 onChange={onInputChange}
               />
@@ -152,7 +152,7 @@ function Signup() {
                 type="email"
                 autoComplete="email"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus: sm:text-sm sm:leading-6"
+                className="block w-full p-1 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus: sm:text-sm sm:leading-6"
                 value={user.email}
                 onChange={onInputChange}
               />
@@ -176,7 +176,7 @@ function Signup() {
                 type="password"
                 autoComplete="new-password"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus: sm:text-sm sm:leading-6"
+                className="block w-full p-1 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus: sm:text-sm sm:leading-6"
                 value={user.password}
                 onChange={onInputChange}
               />
