@@ -30,7 +30,7 @@ function Login() {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center mt-4 rounded-md px-6 py-6 lg:px-8 border">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
@@ -43,7 +43,10 @@ function Login() {
             <Error msg="Invalid Username or Password" />
           </ShouldRender>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
               Email address
             </label>
             <div className="mt-2">
@@ -53,7 +56,7 @@ function Login() {
                 type="email"
                 autoComplete="email"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 onChange={onInputChange}
               />
             </div>
@@ -61,10 +64,12 @@ function Login() {
 
           <div>
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Password
               </label>
-              
             </div>
             <div className="mt-2">
               <input
@@ -73,7 +78,7 @@ function Login() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-primary placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 onChange={onInputChange}
               />
             </div>
@@ -88,13 +93,13 @@ function Login() {
             </button>
           </div>
           <div className="text-center mt-4">
-          <p className="text-gray-500">
-            Don't have an account?{" "}
-            <a href="/signup" className="text-primary">
-              Sign Up
-            </a>
-          </p>
-        </div>
+            <p className="text-gray-500">
+              Don't have an account?{" "}
+              <a href="/signup" className="text-primary">
+                Sign Up
+              </a>
+            </p>
+          </div>
         </form>
       </div>
     </div>
@@ -102,4 +107,3 @@ function Login() {
 }
 
 export default Login;
-
