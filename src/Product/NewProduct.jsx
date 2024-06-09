@@ -44,7 +44,8 @@ function NewProduct() {
         price: "",
         discount: "",
         inStock: false,
-        image: null,
+        image: "",
+        description:""
       });
       setTimeout(() => {
         navigate("/products");
@@ -132,6 +133,21 @@ function NewProduct() {
           placeholder="description"
           type="text"
         />
+      </div>
+
+      <div className="mb-8">
+        <label className="block py-1">Discount</label>
+        <input
+          name="discount"
+          value={product.discount}
+          onChange={onInputChange}
+          className="border border-gray-500 p-1 w-1/2 rounded"
+          placeholder="discount"
+          type="text"
+        />
+        <ShouldRender when={!product.discount}>
+          <div className="text-sm text-red-500 m-1">Discount is required</div>
+        </ShouldRender>
       </div>
 
       <div className="mb-8">

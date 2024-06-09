@@ -173,12 +173,14 @@ function ProductList() {
             <option>Sort</option>
             <option value="price:asc">Price Low to High</option>
             <option value="price:desc">Price High to Low</option>
+            <option value="discount:asc">Discount Low to High</option>
+            <option value="discount:desc">Discount High to Low</option>
           </select>
         </div>
 
         {/* <Link
           to="/products/new"
-          className="bg-primary m-2 p-2 pt-3 rounded ml-4 text-white focus:ring-4 focus:ring-gray-400"
+          className="bg-primary m-3 p-1 pt-2 rounded ml-4 text-white focus:ring-4 focus:ring-gray-400"
         >
           Add Product
         </Link> */}
