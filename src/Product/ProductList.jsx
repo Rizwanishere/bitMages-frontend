@@ -34,7 +34,7 @@ function ProductList() {
       setError(false);
     } catch (err) {
       if (err.response && err.response.status === 401) {
-        navigate("/login");
+        navigate("/signin");
         return;
       }
       setError(true);

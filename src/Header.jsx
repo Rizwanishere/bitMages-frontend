@@ -1,14 +1,18 @@
 import "./styles.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BsBag } from "react-icons/bs";
 import { SidebarContext } from "./context/SidebarContext";
 import { CartContext } from "./context/CartContext";
 import ShouldRender from "./util/ShouldRender";
 import UserContext from "./context/UserContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Header() {
   const { isLoggedin, setLoggedin } = useContext(UserContext);
+  const { isOpen, setIsOpen } = useContext(SidebarContext);
+  const { itemAmount } = useContext(CartContext);
   const navigate = useNavigate();
 
   const onLogoutButton = () => {
@@ -17,8 +21,16 @@ function Header() {
     setLoggedin(false);
   };
 
-  const { isOpen, setIsOpen } = useContext(SidebarContext);
-  const { itemAmount } = useContext(CartContext);
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    if (
+      !isLoggedin &&
+      (currentPath === "/ai")
+    ) {
+      navigate("/signin");
+      toast.error("Please signin to continue!");
+    }
+  }, [isLoggedin, navigate]);
 
   return (
     <header className="bg-white text-light-grey border-b border-gray-200 shadow-md z-10 relative">
@@ -59,22 +71,19 @@ function Header() {
               Contact
             </Link>
           </li>
-          <li>
-            <Link to="/cart" className="nav-link">
-              Cart
-            </Link>
-          </li>
-          <div className="relative">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center z-20"
+          <ShouldRender when={isLoggedin}>
+            <div
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+              className="cursor-pointer flex relative max-w-[50px]"
             >
               <BsBag className="text-2xl" />
               <div className="bg-primary absolute -right-2 -bottom-2 text-[12px] w-[18px] text-white rounded-full flex justify-center items-center">
                 {itemAmount}
               </div>
-            </button>
-          </div>
+            </div>
+          </ShouldRender>
           <ShouldRender when={!isLoggedin}>
             <li>
               <Link
@@ -87,7 +96,10 @@ function Header() {
           </ShouldRender>
           <ShouldRender when={isLoggedin}>
             <li>
-              <button onClick={onLogoutButton} className="text-primary border rounded px-1 border-primary hover:border hover:bg-primary hover:text-white">
+              <button
+                onClick={onLogoutButton}
+                className="text-primary ml-2 border rounded px-1 border-primary hover:border hover:bg-primary hover:text-white"
+              >
                 Logout
               </button>
             </li>
