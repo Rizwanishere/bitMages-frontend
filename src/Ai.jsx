@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
-import { WorkoutPlan, DietPlan } from "./PlanComponents";
 
+import { WorkoutPlan, DietPlan } from "./PlanComponents";
+import Loader from '../src/util/Loader'
 // Define the questions for each step
 const steps = [
   {
@@ -145,10 +146,11 @@ export default function FitnessStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [response, setResponse] = useState(null);
-
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const isLastStep = activeStep === steps.length - 1;
   const isFirstStep = activeStep === 0;
 
+  const [selectPlan, setSelectPlan] = useState('workout');
   const handleNext = () => {
     if (!isLastStep) setActiveStep(activeStep + 1);
   };
@@ -168,6 +170,7 @@ export default function FitnessStepper() {
   };
 
   const handleSubmit = async () => {
+    setIsSubmitClicked(true)
     // Flatten the answers object
     const flattenedAnswers = Object.values(answers).reduce(
       (acc, stepAnswers) => ({ ...acc, ...stepAnswers }),
@@ -186,6 +189,7 @@ export default function FitnessStepper() {
       if (response.ok) {
         const data = await response.json();
         setResponse(data); // Update the response state with the data
+        
       } else {
         console.error("Error submitting data:", response.statusText);
       }
@@ -194,20 +198,9 @@ export default function FitnessStepper() {
     }
   };
 
-  if (response) {
-    return (
-      <div className="w-full max-w-2xl mx-auto py-8 px-4">
-        <h2 className="text-xl font-semibold mb-4">Your Fitness Plan</h2>
-        {/* <p>{JSON.stringify(response)}</p> */}
-
-        <WorkoutPlan data={response.workoutPlan} />
-        <DietPlan data={response.dietPlan} />
-      </div>
-    );
-  }
 
   return (
-    <div className="w-full max-w-2xl mx-auto py-8 px-4">
+    <div className="w-full max-w-2xl mx-auto py-8 px-4 ">
       <div className="relative flex items-center justify-center mb-8 w-[350px] mx-auto">
         {steps.map((step, index) => (
           <div
@@ -286,6 +279,19 @@ export default function FitnessStepper() {
           </Button>
         )}
       </div>
+      {response ? <div className="w-full max-w-2xl mx-auto py-8 px-4">
+        <h2 className="text-xl font-semibold mb-4">Your Fitness Plan</h2>
+        {/* <p>{JSON.stringify(response)}</p> */}
+       
+        <span className="flex gap-2">
+        <span className={`${selectPlan=='workout'&& 'bg-primary text-white'} p-2 border cursor-pointer rounded-md`} onClick={()=>setSelectPlan('workout')}>Workout Plan</span>
+        <span className={`${selectPlan=='diet'&& 'bg-primary text-white'} p-2 border cursor-pointer rounded-md`} onClick={()=>setSelectPlan('diet')}>Diet Plan</span>
+        </span>
+        {selectPlan==='workout'?<WorkoutPlan data={response.workoutPlan} />:
+        <DietPlan data={response.dietPlan} />}
+      </div>:
+      isSubmitClicked && <Loader/>
+      }
     </div>
   );
 }
