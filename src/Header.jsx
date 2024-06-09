@@ -23,7 +23,7 @@ function Header() {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    if (!isLoggedin && currentPath === "/ai" || currentPath === "/products") {
+    if (!isLoggedin && currentPath === "/ai") {
       navigate("/signin");
       toast.error("Please signin to continue!");
     }
