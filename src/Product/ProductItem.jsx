@@ -14,7 +14,7 @@ function Actions({ product }) {
         </div>
       </button>
       <Link
-        to={`/product/${_id}`}
+        to={`/products/${_id}`}
         className="w-12 h-12 bg-white flex justify-center items-center text-primary drop-shadow-xl"
       >
         <BsEyeFill />
@@ -31,7 +31,7 @@ function ProductItem({ product }) {
       <div className="w-full h-full flex flex-col justify-between">
         <div className="w-full h-[200px] flex justify-center items-center">
           <img
-            className="max-h-[160px] mt-12 group-hover:scale-110 transition duration-300"
+            className="max-h-[240px] w-[240px] mt-24 group-hover:scale-110 transition duration-300"
             src={image}
             alt={brand}
           />

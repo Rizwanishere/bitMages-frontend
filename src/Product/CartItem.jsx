@@ -12,7 +12,7 @@ const CartItem = ({ item }) => {
     <div className="flex gap-x-4 py-2 lg:px-6 border-b border-gray-200 w-full font-light text-gray-500">
       <div className="w-full min-h-[150px] flex items-center gap-x-4">
         {/* image */}
-        <Link to={`/product/${_id}`}>
+        <Link to={`/products/${_id}`}>
           <img className="max-w-[80px]" src={image} />
         </Link>
         {/* brand,model & remove icon */}
@@ -20,7 +20,7 @@ const CartItem = ({ item }) => {
           <div className="flex justify-between mb-2">
             {/* brand,model */}
             <Link
-              to={`/product/${_id}`}
+              to={`/products/${_id}`}
               className="text-sm uppercase font-medium max-w-[240px] text-black hover:underline"
             >
               {brand}{' '}{model}

@@ -1,11 +1,22 @@
 import "./styles.css";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsBag } from "react-icons/bs";
 import { SidebarContext } from "./context/SidebarContext";
 import { CartContext } from "./context/CartContext";
+import ShouldRender from "./util/ShouldRender";
+import UserContext from "./context/UserContext";
 
 function Header() {
+  const { isLoggedin, setLoggedin } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const onLogoutButton = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+    setLoggedin(false);
+  };
+
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount } = useContext(CartContext);
 
@@ -54,27 +65,42 @@ function Header() {
             </Link>
           </li>
           <div className="relative">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center z-20" 
-          >
-            <BsBag className="text-2xl" />
-            <div className="bg-primary absolute -right-2 -bottom-2 text-[12px] w-[18px] text-white rounded-full flex justify-center items-center">
-              {itemAmount}
-            </div>
-          </button>
-        </div>
-          <li>
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-          </li>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex items-center z-20"
+            >
+              <BsBag className="text-2xl" />
+              <div className="bg-primary absolute -right-2 -bottom-2 text-[12px] w-[18px] text-white rounded-full flex justify-center items-center">
+                {itemAmount}
+              </div>
+            </button>
+          </div>
+          <ShouldRender when={!isLoggedin}>
+            <li>
+              <Link
+                to="/signin"
+                className="p-1 rounded-lg bg-white text-primary border ml-2 border-primary"
+              >
+                Sign in
+              </Link>
+            </li>
+          </ShouldRender>
+          <ShouldRender when={isLoggedin}>
+            <li>
+              <button onClick={onLogoutButton} className="nav-link">
+                Logout
+              </button>
+            </li>
+          </ShouldRender>
         </ul>
-        
       </nav>
 
       {/* Sidebar */}
-      <div className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} z-30`}>
+      <div
+        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform transition-transform ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        } z-30`}
+      >
         {/* Sidebar content here */}
       </div>
     </header>
