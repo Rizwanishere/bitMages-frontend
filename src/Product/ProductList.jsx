@@ -34,7 +34,7 @@ function ProductList() {
       setError(false);
     } catch (err) {
       if (err.response && err.response.status === 401) {
-        navigate("/login");
+        navigate("/signin");
         return;
       }
       setError(true);
@@ -73,14 +73,14 @@ function ProductList() {
 
   return (
     <div>
-      <div className="flex m-2 mt-6">
-        <h1 className="flex mt-3 text-xl text-gray-500 mt-2 p-1">
+      <div className="flex m-2 justify-center mt-6">
+        <h1 className="flex mt-3 p-1 mr-2">
           Products
         </h1>
         <button
           onClick={onPrev}
           style={{ backgroundColor: page === 1 ? "gray" : "" }}
-          className="bg-primary m-3 text-white  p-2 rounded"
+          className="flex bg-primary mt-3 mb-5 text-white  p-1 rounded"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -97,13 +97,13 @@ function ProductList() {
             />
           </svg>
         </button>
-        <h1 className=" mt-5 text-gray-500 font-normal text-md">
+        <h1 className="ml-2 mt-4 mr-2 text-gray-500 font-normal text-md">
           {page} of {metadata.pages} (Total: {metadata.rows})
         </h1>
         <button
           onClick={onNext}
           style={{ backgroundColor: page === metadata.pages ? "gray" : "" }}
-          className="bg-primary m-3 text-white p-2 rounded"
+          className="bg-primary mt-3 mb-5 text-white p-1 rounded"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -121,14 +121,14 @@ function ProductList() {
           </svg>
         </button>
 
-        <div className="mt-1">
+        <div className="mt-3 ml-2">
           <label
             htmlFor="default-search"
             className="sr-only mb-2 text-sm font-medium"
           >
             Search
           </label>
-          <div className="relative">
+          <div className="relative ml-2">
             <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
               <svg
                 className="h-4 w-4"
@@ -151,14 +151,14 @@ function ProductList() {
               onChange={onTextChange}
               type="search"
               id="default-search"
-              className="block w-full rounded-lg border p-4 ps-10 text-sm text-black focus:ring-primary"
+              className="block w-full rounded-lg border p-2 ps-10 text-sm text-black focus:ring-primary"
               placeholder="Search Brand.."
               required
             />
             <button
               onClick={onSearch}
               type="submit"
-              className="absolute bottom-2.5 end-2.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary focus:outline-none focus:ring-4 focus:ring-gray-400"
+              className="absolute bottom-2.5 end-2.5 rounded bg-primary px-1 text-sm font-medium text-white hover:bg-primary "
             >
               Search
             </button>
@@ -168,7 +168,7 @@ function ProductList() {
         <div>
           <select
             onChange={onSortChange}
-            className="h-12 ml-3 mt-2 border border-primary rounded"
+            className="h-9 ml-3 mt-3 px-1 border border-primary rounded"
           >
             <option>Sort</option>
             <option value="price:asc">Price Low to High</option>
@@ -178,12 +178,12 @@ function ProductList() {
           </select>
         </div>
 
-        <Link
+        {/* <Link
           to="/products/new"
-          className="bg-primary m-2 p-2 pt-3 rounded ml-4 text-white focus:ring-4 focus:ring-gray-400"
+          className="bg-primary m-3 p-1 pt-2 rounded ml-4 text-white focus:ring-4 focus:ring-gray-400"
         >
           Add Product
-        </Link>
+        </Link> */}
       </div>
 
       <ShouldRender when={loading}>

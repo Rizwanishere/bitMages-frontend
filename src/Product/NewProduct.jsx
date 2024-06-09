@@ -44,7 +44,8 @@ function NewProduct() {
         price: "",
         discount: "",
         inStock: false,
-        image: null,
+        image: "",
+        description:""
       });
       setTimeout(() => {
         navigate("/products");
@@ -69,18 +70,18 @@ function NewProduct() {
       <h1 className="text-2xl font-bold">New Product</h1>
       <div className="mt-8 mb-7">
         <label className="block py-1">Brand</label>
-        <select
+        <input
           name="brand"
           value={product.brand}
           onChange={onInputChange}
           className="border border-gray-500 p-1 w-1/2 rounded"
-        >
-          <option value="">brand</option>
+        />
+        {/* <option value="">brand</option>
           <option value="Apple">Apple</option>
           <option value="Samsung">Samsung</option>
           <option value="Google">Google</option>
-          <option value="Oneplus">Oneplus</option>
-        </select>
+          <option value="Oneplus">Oneplus</option> */}
+
         <ShouldRender when={!product.brand}>
           <div className="text-sm text-red-500 m-1">Brand is required</div>
         </ShouldRender>
@@ -123,6 +124,18 @@ function NewProduct() {
       </div>
 
       <div className="mb-8">
+        <label className="block py-1">Description</label>
+        <input
+          name="description"
+          value={product.description}
+          onChange={onInputChange}
+          className="border border-gray-500 p-1 w-1/2 rounded"
+          placeholder="description"
+          type="text"
+        />
+      </div>
+
+      <div className="mb-8">
         <label className="block py-1">Discount</label>
         <input
           name="discount"
@@ -134,31 +147,6 @@ function NewProduct() {
         />
         <ShouldRender when={!product.discount}>
           <div className="text-sm text-red-500 m-1">Discount is required</div>
-        </ShouldRender>
-      </div>
-
-      <div className="mb-8">
-        <label className="block py-1">InStock</label>
-
-        <input
-          type="radio"
-          name="inStock"
-          value="true"
-          onChange={onInputChange}
-        />
-        <label className="py-1 m-2">Yes</label>
-
-        <input
-          type="radio"
-          name="inStock"
-          value="false"
-          onChange={onInputChange}
-        />
-        <label className="py-1 m-2">No</label>
-        <ShouldRender when={!product.inStock}>
-          <div className="text-sm text-red-500 m-1">
-            Field input is required
-          </div>
         </ShouldRender>
       </div>
 

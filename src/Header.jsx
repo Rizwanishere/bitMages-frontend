@@ -1,13 +1,36 @@
 import "./styles.css";
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { BsBag } from "react-icons/bs";
 import { SidebarContext } from "./context/SidebarContext";
 import { CartContext } from "./context/CartContext";
+import ShouldRender from "./util/ShouldRender";
+import UserContext from "./context/UserContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Header() {
+  const { isLoggedin, setLoggedin } = useContext(UserContext);
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const onLogoutButton = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+    setLoggedin(false);
+  };
+
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    if (
+      !isLoggedin &&
+      (currentPath === "/ai")
+    ) {
+      navigate("/signin");
+      toast.error("Please signin to continue!");
+    }
+  }, [isLoggedin, navigate]);
 
   return (
     <header className="bg-white text-light-grey border-b border-gray-200 shadow-md z-10 relative">
@@ -48,33 +71,48 @@ function Header() {
               Contact
             </Link>
           </li>
-          <li>
-            <Link to="/cart" className="nav-link">
-              Cart
-            </Link>
-          </li>
-          <div className="relative">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center z-20" 
-          >
-            <BsBag className="text-2xl" />
-            <div className="bg-primary absolute -right-2 -bottom-2 text-[12px] w-[18px] text-white rounded-full flex justify-center items-center">
-              {itemAmount}
+          <ShouldRender when={isLoggedin}>
+            <div
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+              className="cursor-pointer flex relative max-w-[50px]"
+            >
+              <BsBag className="text-2xl" />
+              <div className="bg-primary absolute -right-2 -bottom-2 text-[12px] w-[18px] text-white rounded-full flex justify-center items-center">
+                {itemAmount}
+              </div>
             </div>
-          </button>
-        </div>
-          <li>
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-          </li>
+          </ShouldRender>
+          <ShouldRender when={!isLoggedin}>
+            <li>
+              <Link
+                to="/signin"
+                className="p-1 rounded-lg bg-white text-primary border ml-2 border-primary"
+              >
+                Sign in
+              </Link>
+            </li>
+          </ShouldRender>
+          <ShouldRender when={isLoggedin}>
+            <li>
+              <button
+                onClick={onLogoutButton}
+                className="text-primary ml-2 border rounded px-1 border-primary hover:border hover:bg-primary hover:text-white"
+              >
+                Logout
+              </button>
+            </li>
+          </ShouldRender>
         </ul>
-        
       </nav>
 
       {/* Sidebar */}
-      <div className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} z-30`}>
+      <div
+        className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform transition-transform ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        } z-30`}
+      >
         {/* Sidebar content here */}
       </div>
     </header>

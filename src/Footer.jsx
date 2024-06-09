@@ -24,7 +24,7 @@ function Footer() {
     <footer className="bg-gray-100 text-light-grey border border-gray-200 rounded-xl p-3 mt-4">
       <div className="container mx-auto w-full max-w-7xl px-8">
         <div className="flex flex-col lg:flex-row justify-between items-center">
-          <div className="flex text-2xl mb-6 lg:mb-0 lg:text-left ml-10">
+          <div className="flex font-bold text-primary text-2xl mb-6 lg:mb-0 lg:text-left ml-10">
             {/* bg logo here */}
             Gymini
           </div>
