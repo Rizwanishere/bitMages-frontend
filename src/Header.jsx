@@ -87,7 +87,7 @@ function Header() {
           </ShouldRender>
           <ShouldRender when={isLoggedin}>
             <li>
-              <button onClick={onLogoutButton} className="nav-link">
+              <button onClick={onLogoutButton} className="text-primary border rounded px-1 border-primary hover:border hover:bg-primary hover:text-white">
                 Logout
               </button>
             </li>
