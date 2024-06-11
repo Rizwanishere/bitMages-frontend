@@ -74,7 +74,7 @@ function ProductList() {
   return (
     <div>
       <div className="flex m-2 justify-center mt-6">
-        <h1 className="flex mt-3 p-1 mr-2">
+        <h1 className="flex mt-3 p-1 mr-2 hidden sm:block">
           Products
         </h1>
         <button
@@ -121,7 +121,7 @@ function ProductList() {
           </svg>
         </button>
 
-        <div className="mt-3 ml-2">
+        <div className="mt-3 ml-2 hidden sm:block">
           <label
             htmlFor="default-search"
             className="sr-only mb-2 text-sm font-medium"
@@ -168,7 +168,7 @@ function ProductList() {
         <div>
           <select
             onChange={onSortChange}
-            className="h-9 ml-3 mt-3 px-1 border border-primary rounded"
+            className="h-9 ml-3 mt-3 px-1 border border-primary rounded hidden sm:block"
           >
             <option>Sort</option>
             <option value="price:asc">Price Low to High</option>
@@ -193,11 +193,12 @@ function ProductList() {
       <ShouldRender when={hasError}>
         <Error />
       </ShouldRender>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-[1200px] mt-8">
-        {products.map((product) => (
-          <ProductItem key={product._id} product={product} onDelete={refresh} />
-        ))}
+      <div className="container mx-auto px-4 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 ml-4 mr-4 mt-8">
+          {products.map((product) => (
+            <ProductItem key={product._id} product={product} onDelete={refresh} />
+          ))}
+        </div>
       </div>
     </div>
   );
