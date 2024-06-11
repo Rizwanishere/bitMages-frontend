@@ -235,7 +235,7 @@ export default function FitnessStepper() {
               {question.question}
             </label>
             <select
-              className="block w-[600px] p-2 border rounded"
+              className="block w-[380px] p-2 border rounded"
               value={answers[activeStep]?.[question.id] || ""}
               onChange={(e) =>
                 handleAnswerChange(activeStep, question.id, e.target.value)
