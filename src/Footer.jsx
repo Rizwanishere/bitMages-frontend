@@ -24,16 +24,15 @@ function Footer() {
     <footer className="bg-gray-100 text-light-grey border border-gray-200 rounded-xl p-3 mt-4">
       <div className="container mx-auto w-full max-w-7xl px-8">
         <div className="flex flex-col lg:flex-row justify-between items-center">
-          <div className="flex font-bold text-primary text-2xl mb-6 lg:mb-0 lg:text-left ml-10">
-            {/* bg logo here */}
+          <div className="flex font-bold text-primary text-2xl mb-6 lg:mb-0 lg:text-left">
             Gymini
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
             {LINKS.map(({ title, items }) => (
               <ul key={title}>
-                <li className="mb-3 font-bold text-primary">{title}</li>
-                {items.map((link) => (
-                  <li key={link} className="py-1.5">
+                <li className="mb-3 font-bold text-primary hidden lg:block">{title}</li>
+                {items.map((link, index) => (
+                  <li key={index} className="py-1.5 hidden lg:block">
                     <Link className="text-gray-700">{link}</Link>
                   </li>
                 ))}
@@ -41,7 +40,7 @@ function Footer() {
             ))}
           </div>
         </div>
-        <div className="mt-12 flex flex-col items-center justify-center border-t border-blue-gray-50 py-4">
+        <div className="mt-6 flex flex-col items-center justify-center border-t border-blue-gray-50 py-4">
           <div className="mb-4 text-center font-normal text-blue-gray-900">
             &copy; {currentYear} Gymini. All rights reserved.
           </div>

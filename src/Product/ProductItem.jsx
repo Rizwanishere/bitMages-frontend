@@ -38,7 +38,7 @@ function ProductItem({ product }) {
         </div>
         <div className="p-4">
           
-          <Link to={`/product/${_id}`}>
+          <Link to={`/products/${_id}`}>
             <h2 className="font-semibold mb-1">{brand}{' '}{model}</h2>
           </Link>
           <div className="font-semibold">₹ {price}</div>
@@ -50,7 +50,7 @@ function ProductItem({ product }) {
               Buy Now
             </button>
             <Link
-              to={`/product/${_id}`}
+              to={`/products/${_id}`}
               className="bg-white border border-primary text-primary hover:bg-primary hover:text-white rounded px-4 py-2"
             >
               View Details

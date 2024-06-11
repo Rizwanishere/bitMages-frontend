@@ -87,7 +87,7 @@ function Login() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm"
+              className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:border hover:border-primary hover:bg-white hover:text-primary"
             >
               Sign in
             </button>
