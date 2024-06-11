@@ -9,6 +9,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import UserContext from "./context/UserContext";
 import { ToastContainer } from "react-toastify";
+import ScrollToTop from "./util/ScrollToTop";
 
 const stripePromise = loadStripe(
   "pk_test_51PMPMCRqDKJqedll0zQ5Xb0S7my1mhW6ub8mmza5XJYfwhI6muyFq598rI3CtjVOsvg1ROctSbh8XzjmmVjB2qeS00NZ2U4e46"
@@ -29,6 +30,7 @@ const App = () => {
   return (
     <div className="flex flex-col min-h-screen justify-between">
       <BrowserRouter>
+        <ScrollToTop />
         <UserContext.Provider value={{ isLoggedin, setLoggedin }}>
           <Header />
           <main className="flex flex-grow justify-center items-center">
