@@ -19,7 +19,7 @@ function Login() {
   const onLogin = async (evt) => {
     evt.preventDefault();
     try {
-      const url = "https://cgc-nodejs.onrender.com/users/signin";
+      const url = "https://bitmages-backend.onrender.com/users/signin";
       const res = await axios.post(url, user);
       localStorage.setItem("token", res.data.token);
       navigate("/products");

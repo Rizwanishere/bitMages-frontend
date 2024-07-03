@@ -56,7 +56,7 @@ function Signup() {
   const onSignup = async (evt) => {
     evt.preventDefault();
     try {
-      const url = "https://cgc-nodejs.onrender.com/users/signup";
+      const url = "https://bitmages-backend.onrender.com/users/signup";
       await axios.post(url, user);
       navigate("/signin");
     } catch (error) {
