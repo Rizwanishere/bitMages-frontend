@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import Error from "../util/Error";
 import ShouldRender from "../util/ShouldRender";
 import UserContext from "../context/UserContext";
+import Loader from "../util/Loader";
 
 function Login() {
   const [user, setUser] = useState({});
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const { setLoggedin } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const onInputChange = (evt) => {
     const newUser = { ...user, [evt.target.name]: evt.target.value };
@@ -18,14 +20,18 @@ function Login() {
 
   const onLogin = async (evt) => {
     evt.preventDefault();
+    setLoading(true);
+    setError(false);
     try {
       const url = "https://bitmages-backend.onrender.com/users/signin";
       const res = await axios.post(url, user);
       localStorage.setItem("token", res.data.token);
-      navigate("/products");
+      navigate("/ai");
       setLoggedin(true);
     } catch (error) {
       setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,6 +42,8 @@ function Login() {
           Sign in to your account
         </h2>
       </div>
+
+      {loading && <Loader />}
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={onLogin}>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../util/Error";
 import ShouldRender from "../util/ShouldRender";
+import Loader from "../util/Loader";
 
 function Signup() {
   const [user, setUser] = useState({
@@ -14,6 +15,7 @@ function Signup() {
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState(false);
   const [submitErrorMessage, setSubmitErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const validateInput = (name, value) => {
@@ -55,6 +57,8 @@ function Signup() {
 
   const onSignup = async (evt) => {
     evt.preventDefault();
+    setLoading(true);
+    setSubmitError(false);
     try {
       const url = "https://bitmages-backend.onrender.com/users/signup";
       await axios.post(url, user);
@@ -62,6 +66,8 @@ function Signup() {
     } catch (error) {
       setSubmitError(true);
       setSubmitErrorMessage(error.response?.data || "Internal Server Error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,6 +85,8 @@ function Signup() {
           Create Your Account
         </h2>
       </div>
+
+      {loading && <Loader />}
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
         <ShouldRender when={submitError}>
