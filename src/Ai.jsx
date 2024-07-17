@@ -2,9 +2,23 @@ import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
 
 import { WorkoutPlan, DietPlan } from "./PlanComponents";
-import Loader from '../src/util/Loader'
+import Loader from "../src/util/Loader";
 // Define the questions for each step
 const steps = [
+  {
+    title: "Personal Information",
+    questions: [
+      {
+        id: "gender",
+        question: "What is your gender?",
+        options: [
+          { value: "Male", label: "Male" },
+          { value: "Female", label: "Female" },
+          { value: "Other", label: "Other" },
+        ],
+      },
+    ],
+  },
   {
     title: "Fitness Goals",
     questions: [
@@ -15,7 +29,7 @@ const steps = [
           { value: "Build muscle", label: "Build muscle" },
           { value: "Lose weight", label: "Lose weight" },
           { value: "Improve endurance", label: "Improve endurance" },
-          { value: "Increase flexibility", label: "Increase flexibility" },
+          { value: "General fitness", label: "General fitness" },
         ],
       },
     ],
@@ -46,6 +60,34 @@ const steps = [
           { value: "Mixed routines", label: "Mixed routines" },
         ],
       },
+      {
+        id: "gymAccess",
+        question: "Do you have gym access?",
+        options: [
+          { value: "Yes", label: "Yes" },
+          { value: "No", label: "No" },
+        ],
+      },
+      {
+        id: "workoutDuration",
+        question: "What is the duration of your workout?",
+        options: [
+          { value: "30 minutes", label: "30 minutes" },
+          { value: "60 minutes", label: "60 minutes" },
+          { value: "90 minutes", label: "90 minutes" },
+          { value: "More", label: "More" },
+        ],
+      },
+      {
+        id: "difficultyLevel",
+        question: "What type of difficulty level?",
+        options: [
+          { value: "None", label: "None" },
+          { value: "Beginners", label: "Beginners" },
+          { value: "Intermediate", label: "Intermediate" },
+          { value: "Experts", label: "Experts" },
+        ],
+      },
     ],
   },
   {
@@ -59,17 +101,18 @@ const steps = [
           { value: "Vegetarian", label: "Vegetarian" },
           { value: "Vegan", label: "Vegan" },
           { value: "Gluten-free", label: "Gluten-free" },
-          { value: "Other", label: "Other" },
+          { value: "Low carb, High protein", label: "Low carb, High protein" },
         ],
       },
       {
-        id: "eatingOutFrequency",
-        question: "How often do you eat out?",
+        id: "preferredCuisine",
+        question: "What type of cuisine do you prefer?",
         options: [
-          { value: "Rarely", label: "Rarely" },
-          { value: "1-2 times per week", label: "1-2 times per week" },
-          { value: "3-4 times per week", label: "3-4 times per week" },
-          { value: "Almost every day", label: "Almost every day" },
+          { value: "Asian", label: "Asian" },
+          { value: "European", label: "European" },
+          { value: "American", label: "American" },
+          { value: "Mediterranean", label: "Mediterranean" },
+          { value: "Middle eastern", label: "Middle eastern" },
         ],
       },
     ],
@@ -150,7 +193,7 @@ export default function FitnessStepper() {
   const isLastStep = activeStep === steps.length - 1;
   const isFirstStep = activeStep === 0;
 
-  const [selectPlan, setSelectPlan] = useState('workout');
+  const [selectPlan, setSelectPlan] = useState("workout");
   const handleNext = () => {
     if (!isLastStep) setActiveStep(activeStep + 1);
   };
@@ -170,7 +213,7 @@ export default function FitnessStepper() {
   };
 
   const handleSubmit = async () => {
-    setIsSubmitClicked(true)
+    setIsSubmitClicked(true);
     // Flatten the answers object
     const flattenedAnswers = Object.values(answers).reduce(
       (acc, stepAnswers) => ({ ...acc, ...stepAnswers }),
@@ -178,18 +221,20 @@ export default function FitnessStepper() {
     );
 
     try {
-      const response = await fetch("https://bitmages-backend.onrender.com/submitUserResponse", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(flattenedAnswers),
-      });
+      const response = await fetch(
+        "https://bitmages-backend.onrender.com/submitUserResponse",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(flattenedAnswers),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
         setResponse(data); // Update the response state with the data
-        
       } else {
         console.error("Error submitting data:", response.statusText);
       }
@@ -198,10 +243,9 @@ export default function FitnessStepper() {
     }
   };
 
-
   return (
     <div className="w-full max-w-2xl mx-auto py-8 px-4 ">
-      <div className="relative flex items-center justify-center mb-8 w-[350px] mx-auto">
+      <div className="relative flex items-center justify-center mb-8 w-[400px] mx-auto">
         {steps.map((step, index) => (
           <div
             key={index}
@@ -279,19 +323,38 @@ export default function FitnessStepper() {
           </Button>
         )}
       </div>
-      {response ? <div className="w-full max-w-2xl mx-auto py-8 px-4">
-        <h2 className="text-xl font-semibold mb-4">Your Fitness Plan</h2>
-        {/* <p>{JSON.stringify(response)}</p> */}
-       
-        <span className="flex gap-2">
-        <span className={`${selectPlan=='workout'&& 'bg-primary text-white'} p-2 border cursor-pointer rounded-md`} onClick={()=>setSelectPlan('workout')}>Workout Plan</span>
-        <span className={`${selectPlan=='diet'&& 'bg-primary text-white'} p-2 border cursor-pointer rounded-md`} onClick={()=>setSelectPlan('diet')}>Diet Plan</span>
-        </span>
-        {selectPlan==='workout'?<WorkoutPlan data={response.workoutPlan} />:
-        <DietPlan data={response.dietPlan} />}
-      </div>:
-      isSubmitClicked && <Loader/>
-      }
+      {response ? (
+        <div className="w-full max-w-2xl mx-auto py-8 px-4">
+          <h2 className="text-xl font-semibold mb-4">Your Fitness Plan</h2>
+          {/* <p>{JSON.stringify(response)}</p> */}
+
+          <span className="flex gap-2">
+            <span
+              className={`${
+                selectPlan == "workout" && "bg-primary text-white"
+              } p-2 border cursor-pointer rounded-md`}
+              onClick={() => setSelectPlan("workout")}
+            >
+              Workout Plan
+            </span>
+            <span
+              className={`${
+                selectPlan == "diet" && "bg-primary text-white"
+              } p-2 border cursor-pointer rounded-md`}
+              onClick={() => setSelectPlan("diet")}
+            >
+              Diet Plan
+            </span>
+          </span>
+          {selectPlan === "workout" ? (
+            <WorkoutPlan data={response.workoutPlan} />
+          ) : (
+            <DietPlan data={response.dietPlan} />
+          )}
+        </div>
+      ) : (
+        isSubmitClicked && <Loader />
+      )}
     </div>
   );
 }
